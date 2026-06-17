@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>蟹化进化</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="960" height="640"></canvas>
+    <div id="ui-overlay">
+      <div id="start-screen" class="screen active">
+        <h1>蟹化进化</h1>
+        <p class="subtitle">CARCINIZATION EVOLUTION</p>
+        <div class="menu-buttons">
+          <button id="btn-start">主线模式 (30分钟)</button>
+          <button id="btn-endless">无尽模式</button>
+          <button id="btn-sandbox">沙盒模式</button>
+          <button id="btn-challenge">挑战模式</button>
+          <button id="btn-genebank">基因库</button>
+          <button id="btn-codex">图鉴</button>
+        </div>
+        <p class="hint">WASD移动 | 鼠标攻击 | E吞噬 | Tab进化 | Shift冲刺 | Space跳跃</p>
+      </div>
+
+      <div id="challenge-screen" class="screen">
+        <h2>挑战模式</h2>
+        <div id="challenge-list" class="challenge-grid"></div>
+        <button id="btn-back-challenge">返回</button>
+      </div>
+
+      <div id="genebank-screen" class="screen">
+        <h2>基因库</h2>
+        <div id="genebank-content" class="genebank-grid"></div>
+        <p id="ep-display" class="ep-label">EP: 0</p>
+        <button id="btn-back-genebank">返回</button>
+      </div>
+
+      <div id="codex-screen" class="screen">
+        <h2>图鉴</h2>
+        <div class="codex-tabs">
+          <button class="codex-tab active" data-tab="evolutions">进化</button>
+          <button class="codex-tab" data-tab="creatures">生物</button>
+          <button class="codex-tab" data-tab="endings">结局</button>
+        </div>
+        <div id="codex-content" class="codex-grid"></div>
+        <button id="btn-back-codex">返回</button>
+      </div>
+
+      <div id="pause-screen" class="screen">
+        <h2>暂停</h2>
+        <button id="btn-resume">继续</button>
+        <button id="btn-achievements">成就</button>
+        <button id="btn-quit">退出</button>
+      </div>
+
+      <div id="achievements-screen" class="screen">
+        <h2>成就</h2>
+        <div id="achievement-list" class="achievement-grid"></div>
+        <button id="btn-back-achievements">返回</button>
+      </div>
+
+      <div id="victory-screen" class="screen">
+        <h1>胜利!</h1>
+        <p id="victory-stats"></p>
+        <div id="victory-ep" class="ep-reward"></div>
+        <button id="btn-restart-win">再来一局</button>
+      </div>
+
+      <div id="defeat-screen" class="screen">
+        <h1>进化终结</h1>
+        <p id="defeat-stats"></p>
+        <div id="defeat-ep" class="ep-reward"></div>
+        <button id="btn-restart-lose">再来一局</button>
+      </div>
+
+      <div id="evolution-panel" class="screen">
+        <canvas id="evoCanvas" width="800" height="560"></canvas>
+        <button id="btn-close-evo">关闭 (Tab)</button>
+      </div>
+
+      <div id="evo-choice-screen" class="screen">
+        <h2>进化！</h2>
+        <p class="evo-choice-subtitle">选择一个进化方向</p>
+        <div id="evo-choices" class="evo-choice-grid"></div>
+        <button id="btn-skip-evo">跳过</button>
+      </div>
+
+      <div id="sandbox-panel" class="screen">
+        <h2>沙盒控制</h2>
+        <div class="sandbox-controls">
+          <div class="sandbox-row">
+            <label>生物类型:</label>
+            <select id="sandbox-creature-type"></select>
+            <label>数量:</label>
+            <input type="number" id="sandbox-creature-count" value="1" min="1" max="10">
+            <button id="btn-sandbox-spawn">生成</button>
+          </div>
+          <div class="sandbox-row">
+            <label>时间速度:</label>
+            <input type="range" id="sandbox-timescale" min="0" max="3" step="0.1" value="1">
+            <span id="sandbox-timescale-val">1.0x</span>
+          </div>
+          <div class="sandbox-row">
+            <label>无敌模式:</label>
+            <input type="checkbox" id="sandbox-godmode">
+          </div>
+        </div>
+        <button id="btn-close-sandbox">关闭</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="src/index.js"></script>
+</body>
+</html>

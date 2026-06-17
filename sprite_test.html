@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sprite Test - All 56 Creatures</title>
+<style>
+body { background: #222; color: #fff; font-family: monospace; margin: 10px; }
+canvas { border: 1px solid #555; display: block; margin: 10px auto; }
+h1 { text-align: center; }
+</style>
+</head>
+<body>
+<h1>All Creature Sprites (56)</h1>
+<canvas id="c" width="960" height="1600"></canvas>
+<script type="module">
+import { CreatureSprites } from './src/rendering/CreatureSprites.js';
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+const sprites = Object.keys(CreatureSprites._sprites);
+const cols = 8;
+const cellW = 120;
+const cellH = 120;
+const rows = Math.ceil(sprites.length / cols);
+canvas.height = rows * cellH + 40;
+
+ctx.fillStyle = '#333';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+let t = 0;
+function frame() {
+    t += 0.016;
+    ctx.fillStyle = '#333';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    sprites.forEach((name, idx) => {
+        const col = idx % cols;
+        const row = Math.floor(idx / cols);
+        const cx = col * cellW + cellW / 2;
+        const cy = row * cellH + cellH / 2 + 10;
+
+        // Draw cell background
+        ctx.strokeStyle = '#555';
+        ctx.strokeRect(col * cellW, row * cellH, cellW, cellH);
+
+        // Draw label
+        ctx.fillStyle = '#ff0';
+        ctx.font = '10px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(name, cx, row * cellH + 12);
+
+        // Draw sprite
+        ctx.save();
+        ctx.translate(cx, cy + 5);
+
+        const entity = {
+            radius: 20,
+            facing: 1,
+            animTimer: t,
+            hp: 80,
+            maxHp: 100,
+            form: name,
+            isPuffed: false,
+            inShell: false,
+            flash: 0,
+            color: '#fff'
+        };
+
+        try {
+            CreatureSprites._sprites[name](ctx, entity);
+        } catch (e) {
+            ctx.fillStyle = '#f00';
+            ctx.font = '8px monospace';
+            ctx.fillText('ERROR', 0, 0);
+            console.error('Error in ' + name + ':', e);
+        }
+
+        ctx.restore();
+    });
+
+    requestAnimationFrame(frame);
+}
+frame();
+
+document.title = 'Sprite Test - ' + sprites.length + ' creatures loaded';
+</script>
+</body>
+</html>

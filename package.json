@@ -1,0 +1,13 @@
+{
+  "name": "carcinization-evolution-2",
+  "version": "1.0.0",
+  "description": "蟹化进化 - 进化生存动作游戏",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^35.0.0"
+  }
+}
